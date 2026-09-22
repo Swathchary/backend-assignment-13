@@ -8,9 +8,8 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// -------------------------------------------------------------
 // 1. Connect to MongoDB using mongoose.connect()
-// -------------------------------------------------------------
+
 const MONGO_URI = 'mongodb://127.0.0.1:27017/postAssignmentDB';
 
 mongoose
@@ -18,9 +17,8 @@ mongoose
   .then(() => console.log('Successfully connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// -------------------------------------------------------------
 // 2. Create Mongoose Schema & Model
-// -------------------------------------------------------------
+
 // Schema with title and content as string datatype
 const schema = new mongoose.Schema({
   title: String,
@@ -30,11 +28,10 @@ const schema = new mongoose.Schema({
 // Create model from schema
 const Post = mongoose.model('Post', schema);
 
-// -------------------------------------------------------------
 // 3. API Routes
-// -------------------------------------------------------------
 
-// i) GET route '/getPosts' - Displays all available posts using find()
+
+// i) GET route '/getPosts' 
 app.get('/getPosts', async (req, res) => {
   try {
     // Retrieve all documents from MongoDB
@@ -45,7 +42,7 @@ app.get('/getPosts', async (req, res) => {
   }
 });
 
-// ii) POST route '/addPosts' - Adds a post into MongoDB using save()
+// ii) POST route '/addPosts' 
 app.post('/addPosts', async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -64,7 +61,7 @@ app.post('/addPosts', async (req, res) => {
   }
 });
 
-// iii) DELETE route '/delPosts' - Deletes a post using findByIdAndDelete()
+// iii) DELETE route '/delPosts' 
 
 app.delete('/delPosts', async (req, res) => {
   try {
@@ -87,7 +84,8 @@ app.delete('/delPosts', async (req, res) => {
   }
 });
 
-// iv) PATCH route '/post/:id' - Updates a particular post
+// iv) PATCH route '/post/:id'
+
 app.patch('/post/:id', async (req, res) => {
   try {
     const { id } = req.params;
